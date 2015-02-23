@@ -15,7 +15,8 @@
     method: "POST"
     data:
       url: url
-    url: "https://todiffer.herokuapp.com"
+    url: "https://todiffer.herokuapp.com/articles"
+    # url: "http://localhost:3000"
     success: ->
       alert 'Now tracking this article'
 )

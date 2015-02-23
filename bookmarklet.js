@@ -21,7 +21,7 @@
       data: {
         url: url
       },
-      url: "https://todiffer.herokuapp.com",
+      url: "https://todiffer.herokuapp.com/articles",
       success: function() {
         return alert('Now tracking this article');
       }
