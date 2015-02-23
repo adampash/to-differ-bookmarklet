@@ -8,7 +8,7 @@
         h((f=e.jQuery).noConflict(1),b=1)
         f(c).remove()
     a.documentElement.childNodes[0].appendChild(c)
-)(window,document,"1.3.2", ($,L) ->
+)(window,document,"2.1.3", ($,L) ->
   url = window.location.href
 
   $.ajax
