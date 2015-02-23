@@ -11,7 +11,7 @@
           return f(c).remove();
         }
       };
-      return a.documentElement.childNodes[0].appendChild(c);
+      return document.body.appendChild(c);
     }
   })(window, document, "2.1.3", function($, L) {
     var url;

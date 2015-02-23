@@ -7,7 +7,8 @@
       if(!b&&(!(d=this.readyState)||d=="loaded"||d=="complete"))
         h((f=e.jQuery).noConflict(1),b=1)
         f(c).remove()
-    a.documentElement.childNodes[0].appendChild(c)
+    # a.documentElement.childNodes[0].appendChild(c)
+    document.body.appendChild(c)
 )(window,document,"2.1.3", ($,L) ->
   url = window.location.href
 
