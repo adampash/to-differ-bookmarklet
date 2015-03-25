@@ -13,7 +13,7 @@
     div = $("<div />",
       html: '&shy;<style>' + rule + '</style>'
   ).appendTo("body")
-  injectStyles('.mouseOn { background: #bcd5eb !important; }')
+  injectStyles('.mouseOn { background: #bcd5eb !important; outline: 2px solid #5166bb !important; }')
 
   prevElement = null
   document.addEventListener('mousemove', (e) ->
