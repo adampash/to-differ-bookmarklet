@@ -14,7 +14,7 @@
       return document.body.appendChild(c);
     }
   })(window, document, "2.1.3", function($, L) {
-    var injectStyles, prevElement, submitStory;
+    var getSelectors, injectStyles, prevElement, submitStory;
     injectStyles = function(rule) {
       var div;
       return div = $("<div />", {
@@ -22,8 +22,9 @@
       }).appendTo("body");
     };
     injectStyles('.mouseOn { background: #bcd5eb !important; outline: 2px solid #5166bb !important; }');
+    injectStyles(".content_check {\n  z-index: 9999999999999999999;\n  border: 5px solid #ddd;\n  width: 600px;\n  position: absolute;\n  top: 50px;\n  right: 0;\n  left: 0;\n  background: white;\n  margin: 0 auto;\n}\n.content_check_container {\n  width: 100%;\n}");
     prevElement = null;
-    document.addEventListener('mousemove', function(e) {
+    $(document).on('mousemove', function(e) {
       var $el, elem;
       elem = e.target || e.srcElement;
       $el = $(elem);
@@ -31,20 +32,53 @@
         prevElement.classList.remove("mouseOn");
       }
       elem.classList.add("mouseOn");
-      elem.addEventListener('click', submitStory);
-      prevElement.removeEventListener('click', submitStory);
       return prevElement = elem;
+    });
+    document.addEventListener('click', function(e) {
+      var elem, selectors;
+      $(document).off('mousemove');
+      $('.mouseOn').removeClass('.mouseOn');
+      elem = e.target || e.srcElement;
+      selectors = getSelectors(elem);
+      return submitStory(selectors);
     }, true);
-    return submitStory = function() {
-      debugger;
+    getSelectors = function(el) {
+      var $el, classNames, id, selector;
+      $el = $(el);
+      selector = "";
+      if (selector) {
+        selector += " " + $el[0].nodeName.toLowerCase();
+      }
+      id = $el.attr("id");
+      if (id) {
+        selector += "#" + id;
+      }
+      classNames = $el.attr("class");
+      if (classNames) {
+        selector += "." + $.trim(classNames).replace(/\s/gi, ".");
+      }
+      selector = selector.replace('.mouseOn', '');
+      return selector;
+    };
+    return submitStory = function(selector) {
+      var url;
+      url = window.location.href;
       return $.ajax({
         method: "POST",
         data: {
-          url: url
+          url: url,
+          selector: selector,
+          format: 'html'
         },
-        url: "https://todiffer.herokuapp.com/articles",
-        success: function() {
-          return alert('Now tracking this article');
+        url: "https://text-fetch.herokuapp.com/",
+        success: function(result) {
+          var content_div;
+          result = JSON.parse(result);
+          console.log(result);
+          content_div = $('<div class="content_check_container"><div class="content_check"></div></div>');
+          content_div.find('.content_check').html(result.text.html);
+          $('body').append(content_div);
+          debugger;
         }
       });
     };

@@ -15,28 +15,90 @@
   ).appendTo("body")
   injectStyles('.mouseOn { background: #bcd5eb !important; outline: 2px solid #5166bb !important; }')
 
+  injectStyles("""
+    .content_check {
+      z-index: 9999999999999999999;
+      border: 5px solid #ddd;
+      width: 600px;
+      position: absolute;
+      top: 50px;
+      right: 0;
+      left: 0;
+      background: white;
+      margin: 0 auto;
+    }
+    .content_check_container {
+      width: 100%;
+    }
+  """)
   prevElement = null
-  document.addEventListener('mousemove', (e) ->
+  $(document).on 'mousemove', (e) ->
     elem = e.target || e.srcElement
     $el = $(elem)
     if (prevElement!= null)
       prevElement.classList.remove("mouseOn")
     elem.classList.add("mouseOn")
-    elem.addEventListener 'click', submitStory
-    prevElement.removeEventListener 'click', submitStory
+    # $(elem).on 'click', ->
+    #   debugger
+    #   selectors = getSelectors(@)
+    # $(prevElement).off() if prevElement?
+    # elem.addEventListener 'click', submitStory
+    # prevElement.removeEventListener 'click', submitStory if prevElement
     prevElement = elem
-  ,true)
-  # url = window.location.href
 
-  submitStory = ->
-    debugger
+  document.addEventListener('click', (e) ->
+    $(document).off 'mousemove'
+    $('.mouseOn').removeClass('.mouseOn')
+    elem = e.target || e.srcElement
+    # $(elem).on 'click', ->
+    selectors = getSelectors(elem)
+    submitStory selectors
+  , true)
+
+  getSelectors = (el) ->
+    $el = $(el)
+    selector = ""
+    # selector += $el.parents()
+    #             .map () -> @tagName.toLowerCase()
+    #             .get().reverse().join(" ")
+
+    if selector
+      selector += " "+ $el[0].nodeName.toLowerCase()
+
+    id = $el.attr("id")
+    if id
+      selector += "#"+ id
+
+    classNames = $el.attr("class")
+    if (classNames)
+      selector += "." + $.trim(classNames).replace(/\s/gi, ".")
+
+    selector = selector.replace('.mouseOn', '')
+    selector
+
+  submitStory = (selector) ->
+    url = window.location.href
     $.ajax
       method: "POST"
       data:
         url: url
-      url: "https://todiffer.herokuapp.com/articles"
-      # url: "http://localhost:3000"
-      success: ->
-        alert 'Now tracking this article'
+        selector: selector
+        format: 'html'
+      url: "https://text-fetch.herokuapp.com/"
+      success: (result)->
+        result = JSON.parse result
+        console.log result
+        content_div = $('<div class="content_check_container"><div class="content_check"></div></div>')
+        content_div.find('.content_check').html(result.text.html)
+        $('body').append(content_div)
+        debugger
+    # $.ajax
+    #   method: "POST"
+    #   data:
+    #     url: url
+    #   url: "https://todiffer.herokuapp.com/articles"
+    #   # url: "http://localhost:3000"
+    #   success: ->
+    #     alert 'Now tracking this article'
 
 )
