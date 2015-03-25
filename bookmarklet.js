@@ -14,18 +14,19 @@
       return document.body.appendChild(c);
     }
   })(window, document, "2.1.3", function($, L) {
-    var url;
-    url = window.location.href;
-    return $.ajax({
-      method: "POST",
-      data: {
-        url: url
-      },
-      url: "https://todiffer.herokuapp.com/articles",
-      success: function() {
-        return alert('Now tracking this article');
+    var prevElement;
+    prevElement = null;
+    return document.addEventListener('mousemove', function(e) {
+      var $el, elem;
+      elem = e.target || e.srcElement;
+      $el = $(elem);
+      if (prevElement !== null) {
+        prevElement.classList.remove("mouseOn");
       }
-    });
+      elem.classList.add("mouseOn");
+      $el.style('background-color', '#bcd5eb !important');
+      return prevElement = elem;
+    }, true);
   });
 
 }).call(this);
