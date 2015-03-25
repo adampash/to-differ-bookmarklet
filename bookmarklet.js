@@ -14,7 +14,7 @@
       return document.body.appendChild(c);
     }
   })(window, document, "2.1.3", function($, L) {
-    var injectStyles, prevElement;
+    var injectStyles, prevElement, submitStory;
     injectStyles = function(rule) {
       var div;
       return div = $("<div />", {
@@ -23,7 +23,7 @@
     };
     injectStyles('.mouseOn { background: #bcd5eb !important; outline: 2px solid #5166bb !important; }');
     prevElement = null;
-    return document.addEventListener('mousemove', function(e) {
+    document.addEventListener('mousemove', function(e) {
       var $el, elem;
       elem = e.target || e.srcElement;
       $el = $(elem);
@@ -31,8 +31,27 @@
         prevElement.classList.remove("mouseOn");
       }
       elem.classList.add("mouseOn");
+      $(elem).on('click', function() {
+        return submitStory;
+      });
+      $(prevElement).off('click', function() {
+        return submitStory;
+      });
       return prevElement = elem;
     }, true);
+    return submitStory = function() {
+      debugger;
+      return $.ajax({
+        method: "POST",
+        data: {
+          url: url
+        },
+        url: "https://todiffer.herokuapp.com/articles",
+        success: function() {
+          return alert('Now tracking this article');
+        }
+      });
+    };
   });
 
 }).call(this);
