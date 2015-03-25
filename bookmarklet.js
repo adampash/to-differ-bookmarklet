@@ -14,7 +14,14 @@
       return document.body.appendChild(c);
     }
   })(window, document, "2.1.3", function($, L) {
-    var prevElement;
+    var injectStyles, prevElement;
+    injectStyles = function(rule) {
+      var div;
+      return div = $("<div />", {
+        html: '&shy;<style>' + rule + '</style>'
+      }).appendTo("body");
+    };
+    injectStyles('.mouseOn { background: #bcd5eb !important; }');
     prevElement = null;
     return document.addEventListener('mousemove', function(e) {
       var $el, elem;
@@ -24,7 +31,6 @@
         prevElement.classList.remove("mouseOn");
       }
       elem.classList.add("mouseOn");
-      $el.css('background-color', '#bcd5eb !important');
       return prevElement = elem;
     }, true);
   });

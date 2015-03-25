@@ -9,6 +9,12 @@
         f(c).remove()
     document.body.appendChild(c)
 )(window,document,"2.1.3", ($,L) ->
+  injectStyles = (rule) ->
+    div = $("<div />",
+      html: '&shy;<style>' + rule + '</style>'
+  ).appendTo("body")
+  injectStyles('.mouseOn { background: #bcd5eb !important; }')
+
   prevElement = null
   document.addEventListener('mousemove', (e) ->
     elem = e.target || e.srcElement
@@ -16,7 +22,7 @@
     if (prevElement!= null)
       prevElement.classList.remove("mouseOn")
     elem.classList.add("mouseOn")
-    $el.css('background-color', '#bcd5eb !important')
+    # $el.css('background-color', '#bcd5eb !important')
     prevElement = elem
   ,true)
   # url = window.location.href
@@ -29,4 +35,5 @@
   #   # url: "http://localhost:3000"
   #   success: ->
   #     alert 'Now tracking this article'
+
 )
