@@ -24,7 +24,7 @@
         prevElement.classList.remove("mouseOn");
       }
       elem.classList.add("mouseOn");
-      $el.style('background-color', '#bcd5eb !important');
+      $el.css('background-color', '#bcd5eb !important');
       return prevElement = elem;
     }, true);
   });
