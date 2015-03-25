@@ -22,8 +22,8 @@
     if (prevElement!= null)
       prevElement.classList.remove("mouseOn")
     elem.classList.add("mouseOn")
-    $(elem).on 'click', -> submitStory
-    $(prevElement).off 'click', -> submitStory
+    $(elem).on 'click', submitStory
+    $(prevElement).off 'click', submitStory
     prevElement = elem
   ,true)
   # url = window.location.href

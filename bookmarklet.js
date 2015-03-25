@@ -31,12 +31,8 @@
         prevElement.classList.remove("mouseOn");
       }
       elem.classList.add("mouseOn");
-      $(elem).on('click', function() {
-        return submitStory;
-      });
-      $(prevElement).off('click', function() {
-        return submitStory;
-      });
+      $(elem).on('click', submitStory);
+      $(prevElement).off('click', submitStory);
       return prevElement = elem;
     }, true);
     return submitStory = function() {
