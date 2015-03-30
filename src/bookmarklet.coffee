@@ -90,7 +90,7 @@
         console.log result
         content_div = $('<div class="content_check_container"><div class="content_check"></div></div>')
         debugger
-        content_div.find('.content_check').html(result.text)
+        content_div.find('.content_check').html(result.text.replace(/\n/g, "<br>"))
         $('body').append(content_div)
 
 )
