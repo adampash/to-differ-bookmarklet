@@ -89,16 +89,8 @@
         result = JSON.parse result
         console.log result
         content_div = $('<div class="content_check_container"><div class="content_check"></div></div>')
-        content_div.find('.content_check').html(result.text.html)
-        $('body').append(content_div)
         debugger
-    # $.ajax
-    #   method: "POST"
-    #   data:
-    #     url: url
-    #   url: "https://todiffer.herokuapp.com/articles"
-    #   # url: "http://localhost:3000"
-    #   success: ->
-    #     alert 'Now tracking this article'
+        content_div.find('.content_check').html(result.text)
+        $('body').append(content_div)
 
 )

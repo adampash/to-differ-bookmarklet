@@ -76,9 +76,9 @@
           result = JSON.parse(result);
           console.log(result);
           content_div = $('<div class="content_check_container"><div class="content_check"></div></div>');
-          content_div.find('.content_check').html(result.text.html);
-          $('body').append(content_div);
           debugger;
+          content_div.find('.content_check').html(result.text);
+          return $('body').append(content_div);
         }
       });
     };
