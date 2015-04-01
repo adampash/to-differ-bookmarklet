@@ -37,6 +37,7 @@
     document.addEventListener('click', function(e) {
       var elem, selectors;
       $(document).off('mousemove');
+      document.removeEventListener('click');
       elem = e.target || e.srcElement;
       selectors = getSelectors(elem).replace(/\.+/g, '.');
       return submitStory(selectors);

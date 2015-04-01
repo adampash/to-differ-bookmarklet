@@ -48,6 +48,7 @@
 
   document.addEventListener('click', (e) ->
     $(document).off 'mousemove'
+    document.removeEventListener('click')
     elem = e.target || e.srcElement
     # $(elem).on 'click', ->
     selectors = getSelectors(elem).replace(/\.+/g, '.')
