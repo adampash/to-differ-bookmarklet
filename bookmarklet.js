@@ -38,7 +38,6 @@
       var elem, selectors;
       $(document).off('mousemove');
       elem = e.target || e.srcElement;
-      debugger;
       selectors = getSelectors(elem).replace(/\.+/g, '.');
       return submitStory(selectors);
     }, true);

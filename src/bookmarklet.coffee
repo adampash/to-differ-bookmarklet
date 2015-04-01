@@ -50,7 +50,6 @@
     $(document).off 'mousemove'
     elem = e.target || e.srcElement
     # $(elem).on 'click', ->
-    debugger
     selectors = getSelectors(elem).replace(/\.+/g, '.')
     submitStory selectors
   , true)
