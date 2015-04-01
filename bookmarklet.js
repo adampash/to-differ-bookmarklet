@@ -37,7 +37,6 @@
     document.addEventListener('click', function(e) {
       var elem, selectors;
       $(document).off('mousemove');
-      $('.mouseOn').removeClass('.mouseOn');
       elem = e.target || e.srcElement;
       selectors = getSelectors(elem);
       return submitStory(selectors);

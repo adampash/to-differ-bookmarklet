@@ -48,7 +48,6 @@
 
   document.addEventListener('click', (e) ->
     $(document).off 'mousemove'
-    $('.mouseOn').removeClass('.mouseOn')
     elem = e.target || e.srcElement
     # $(elem).on 'click', ->
     selectors = getSelectors(elem)
