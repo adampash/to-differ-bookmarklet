@@ -35,12 +35,11 @@
       return prevElement = elem;
     });
     document.addEventListener('click', function(e) {
-      var elem, jselectors, selectors;
+      var elem, selectors;
       $(document).off('mousemove');
       elem = e.target || e.srcElement;
       debugger;
-      selectors = getSelectors(elem);
-      jselectors = $(elem).selector();
+      selectors = getSelectors(elem).replace(/\.+/g, '.');
       return submitStory(selectors);
     }, true);
     getSelectors = function(el) {
