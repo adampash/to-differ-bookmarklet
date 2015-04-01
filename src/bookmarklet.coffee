@@ -50,7 +50,9 @@
     $(document).off 'mousemove'
     elem = e.target || e.srcElement
     # $(elem).on 'click', ->
+    debugger
     selectors = getSelectors(elem)
+    jselectors = $(elem).selector()
     submitStory selectors
   , true)
 
