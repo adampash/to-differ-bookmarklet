@@ -89,7 +89,7 @@
         result = JSON.parse result
         console.log result
         content_div = $('<div class="content_check_container"><div class="content_check"></div></div>')
-        debugger
+        $('.mouseOn').removeClass('mouseOn')
         content_div.find('.content_check').html(result.text.replace(/\n/g, "<br>"))
         $('body').append(content_div)
 
